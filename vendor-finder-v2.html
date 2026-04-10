@@ -1446,7 +1446,7 @@ function openPanel(vendorName) {
       <div class="history-item">
         <div>
           <div class="history-project">${escapeHtml(q.project)}</div>
-          <div class="history-meta">${q.duration ? "소요시간 " + escapeHtml(q.duration) + " · " : ""}${q.cat.join(" / ")}</div>
+          <div class="history-meta">${q.duration ? "제작에 걸린 시간 " + escapeHtml(q.duration) + " · " : ""}${q.cat.join(" / ")}</div>
         </div>
         <a class="history-price${priceObj.unset ? " unset" : ""}" href="${escapeAttr(q.url)}" target="_blank" rel="noopener" style="text-decoration:none;">${priceObj.text}</a>
         ${renderQuoteFiles(q)}
