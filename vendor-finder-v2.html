@@ -1370,15 +1370,13 @@ function fileIconLabel(kind) {
 }
 
 function renderQuoteFiles(q) {
-  // hasFiles 가 true 인 견적만 "견적서 보기" 버튼 노출
-  // 클릭하면 해당 노션 페이지가 새 탭에서 열림 → 거기서 PDF 다운로드
   if (!q.hasFiles) return "";
+  // fileUrl 이 있으면 PDF 직접 링크, 없으면 노션 페이지로 fallback
+  const href = q.fileUrl || q.url;
   return `
     <div class="history-files">
-      <div class="file-row">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--text-tertiary)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        <span style="flex:1;font-size:13px;color:var(--text-secondary)">견적서 파일</span>
-        <a class="file-btn" href="${escapeAttr(q.url)}" target="_blank" rel="noopener noreferrer">견적서 보기 ↗</a>
+      <div class="file-row" style="justify-content:flex-end;">
+        <a class="file-btn" href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">견적서 보기 ↗</a>
       </div>
     </div>
   `;
