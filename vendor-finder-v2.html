@@ -552,10 +552,17 @@
     color: var(--text-tertiary);
   }
 
-  .card-note {
+  .card-summary {
     font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    color: var(--text-primary);
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .card-note {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
     margin-bottom: 12px;
   }
 
@@ -1314,9 +1321,18 @@ function render() {
     return;
   }
 
+  // 같은 업체명의 프로젝트 목록을 모아서 요약 생성
+  function summarizeProjects(vendorName) {
+    const projects = filtered.filter(v => v.name === vendorName).map(v => v.project);
+    const unique = [...new Set(projects)];
+    if (unique.length <= 2) return unique.join(", ");
+    return unique.slice(0, 2).join(", ") + ` 외 ${unique.length - 2}건`;
+  }
+
   container.innerHTML = filtered.map((d, i) => {
     const isRec = d.status === "green";
     const priceObj = fmt(d.price);
+    const summary = summarizeProjects(d.name);
     return `
       <article class="vendor-card${isRec ? " recommended" : ""}" style="animation-delay: ${i * 0.04}s" data-vendor="${escapeAttr(d.name)}" tabindex="0" role="button" aria-label="${escapeAttr(d.name)} 상세 보기">
         <div class="card-top">
@@ -1327,10 +1343,8 @@ function render() {
           <div class="card-price${priceObj.unset ? " unset" : ""}">${priceObj.text}</div>
         </div>
         ${d.cat.length ? `<div class="card-tags">${d.cat.map(c => `<span class="tag">${c}</span>`).join("")}</div>` : ""}
-        <div class="card-meta">
-          ${d.duration ? `<span class="meta-item"><span class="meta-key">Lead</span> ${d.duration}</span>` : ""}
-        </div>
-        ${d.note ? `<div class="card-note">${d.note}</div>` : ""}
+        <div class="card-summary">${escapeHtml(d.project)}${d.duration ? ` · ${escapeHtml(d.duration)}` : ""}</div>
+        ${d.note ? `<div class="card-note">${escapeHtml(d.note)}</div>` : ""}
         <div class="card-footer">
           <div class="card-project">— ${d.project}</div>
           <a class="notion-link" href="${d.url}" target="_blank" rel="noopener" data-stop="1">
