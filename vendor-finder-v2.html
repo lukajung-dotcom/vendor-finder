@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Finder — Brand Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<style>
+  :root {
+    /* Core palette — warm off-white editorial */
+    --bg: #F6F5F1;
+    --bg-grain: #F1F0EB;
+    --surface: #FBFAF7;
+    --surface-elevated: #FFFFFF;
+
+    --ink-1: #13130F;
+    --ink-2: #4A4A42;
+    --ink-3: #8A8A80;
+    --ink-4: #B8B7AD;
+
+    --line: #E5E3DA;
+    --line-strong: #D4D2C6;
+    --line-hover: #B8B6A8;
+
+    /* Accent — muted cobalt */
+    --accent: #1E40AF;
+    --accent-hover: #1E3A8A;
+    --accent-soft: #EEF1FA;
+    --accent-line: #C9D2ED;
+
+    /* Semantic — desaturated editorial */
+    --sage: #4A6B3E;
+    --sage-soft: #EEF3E8;
+    --amber: #8B6914;
+    --amber-soft: #F5EFDF;
+    --rust: #8B3A1F;
+    --rust-soft: #F3E4DD;
+
+    --radius-sm: 6px;
+    --radius: 10px;
+    --radius-lg: 16px;
+
+    --serif: 'Instrument Serif', 'Noto Serif KR', Georgia, serif;
+    --sans: 'Pretendard Variable', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E0E0C;
+      --bg-grain: #121210;
+      --surface: #161613;
+      --surface-elevated: #1C1C18;
+
+      --ink-1: #F4F3EE;
+      --ink-2: #B8B7AC;
+      --ink-3: #7A7970;
+      --ink-4: #4A4944;
+
+      --line: #242420;
+      --line-strong: #2E2E29;
+      --line-hover: #3A3A34;
+
+      --accent: #93B4FF;
+      --accent-hover: #B5CCFF;
+      --accent-soft: #1A2238;
+      --accent-line: #2A3658;
+
+      --sage: #A8C89A;
+      --sage-soft: #1A231A;
+      --amber: #D4B87A;
+      --amber-soft: #26200F;
+      --rust: #D89985;
+      --rust-soft: #261813;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink-1);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(30, 64, 175, 0.04), transparent),
+      radial-gradient(ellipse 60% 30% at 0% 100%, rgba(139, 105, 20, 0.03), transparent);
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 5rem 2rem 6rem;
+  }
+
+  /* ── Header ── */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.6s var(--ease) both;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 24px;
+    height: 1px;
+    background: var(--ink-3);
+  }
+
+  .title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 56px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink-1);
+    margin-bottom: 0.75rem;
+    animation: fadeUp 0.7s var(--ease) 0.05s both;
+  }
+  .title em {
+    font-style: italic;
+    color: var(--ink-2);
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: var(--ink-2);
+    max-width: 480px;
+    margin-bottom: 3.5rem;
+    animation: fadeUp 0.7s var(--ease) 0.1s both;
+  }
+
+  /* ── Filter sections ── */
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.7s var(--ease) 0.15s both;
+  }
+
+  .filter-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .filter-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    padding-top: 9px;
+  }
+  .filter-label .count {
+    color: var(--ink-4);
+    margin-left: 4px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 450;
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all 0.25s var(--ease);
+    user-select: none;
+    letter-spacing: -0.005em;
+  }
+  .chip:hover {
+    border-color: var(--line-hover);
+    color: var(--ink-1);
+    transform: translateY(-1px);
+  }
+  .chip.active {
+    background: var(--ink-1);
+    color: var(--bg);
+    border-color: var(--ink-1);
+  }
+
+  /* Budget slider */
+  .budget-track {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 4px;
+  }
+  .budget-track input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    background: var(--line-strong);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+  .budget-track input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    background: var(--surface-elevated);
+    border: 1.5px solid var(--ink-1);
+    border-radius: 50%;
+    cursor: grab;
+    transition: all 0.2s var(--ease);
+  }
+  .budget-track input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 6px rgba(30, 64, 175, 0.08);
+  }
+  .budget-track input[type=range]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: var(--surface-elevated);
+    border: 1.5px solid var(--ink-1);
+    border-radius: 50%;
+    cursor: grab;
+  }
+  .budget-val {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 110px;
+    text-align: right;
+    color: var(--ink-1);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Toggle switch */
+  .switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 0;
+  }
+  .switch input { display: none; }
+  .switch-track {
+    position: relative;
+    width: 32px;
+    height: 18px;
+    background: var(--line-strong);
+    border-radius: 100px;
+    transition: background 0.25s var(--ease);
+    flex-shrink: 0;
+  }
+  .switch-track::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: var(--surface-elevated);
+    border-radius: 50%;
+    transition: transform 0.3s var(--ease);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+  .switch input:checked + .switch-track {
+    background: var(--ink-1);
+  }
+  .switch input:checked + .switch-track::after {
+    transform: translateX(14px);
+  }
+  .switch-text {
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+
+  /* ── Results meta ── */
+  .results-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.6s var(--ease) 0.25s both;
+  }
+  .results-count {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink-1);
+    letter-spacing: -0.01em;
+  }
+  .results-count .num {
+    font-style: normal;
+    font-family: var(--sans);
+    font-weight: 500;
+    margin-right: 2px;
+  }
+  .results-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .refresh-btn {
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    color: var(--ink-2);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.2s var(--ease);
+    flex-shrink: 0;
+  }
+  .refresh-btn svg { width: 12px; height: 12px; }
+  .refresh-btn:hover {
+    border-color: var(--ink-1);
+    color: var(--ink-1);
+    transform: rotate(-30deg);
+  }
+  .refresh-btn.spinning {
+    animation: spin 0.8s linear infinite;
+    pointer-events: none;
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── Vendor cards ── */
+  .vendor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .vendor-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    transition: all 0.35s var(--ease);
+    animation: cardIn 0.5s var(--ease) both;
+    overflow: hidden;
+  }
+  .vendor-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+  }
+  .vendor-card:hover {
+    border-color: var(--line-hover);
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 2px rgba(0,0,0,0.03),
+      0 8px 24px -8px rgba(0,0,0,0.08);
+  }
+  .vendor-card.recommended {
+    background: var(--surface-elevated);
+  }
+  .vendor-card.recommended::before {
+    background: linear-gradient(135deg, var(--accent-line), transparent 50%);
+    opacity: 1;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .vendor-name-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .vendor-name {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink-1);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 9px 3px 7px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .badge::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .badge-green { background: var(--sage-soft); color: var(--sage); }
+  .badge-orange { background: var(--amber-soft); color: var(--amber); }
+  .badge-warn { background: var(--rust-soft); color: var(--rust); }
+
+  .card-price {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--ink-1);
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    letter-spacing: -0.01em;
+  }
+  .card-price.unset {
+    color: var(--ink-4);
+    font-weight: 400;
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 15px;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 2px 9px;
+    color: var(--ink-3);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    background: transparent;
+    letter-spacing: -0.005em;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-size: 13px;
+    color: var(--ink-2);
+    margin-bottom: 8px;
+  }
+  .card-meta .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-meta .meta-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-4);
+  }
+
+  .card-note {
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+  .card-project {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-style: italic;
+    font-family: var(--serif);
+    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .notion-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: all 0.2s var(--ease);
+    flex-shrink: 0;
+  }
+  .notion-link:hover {
+    color: var(--accent);
+    gap: 8px;
+  }
+  .notion-link svg {
+    width: 10px;
+    height: 10px;
+    transition: transform 0.2s var(--ease);
+  }
+  .notion-link:hover svg {
+    transform: translate(1px, -1px);
+  }
+
+  /* Empty state */
+  .empty-state {
+    text-align: center;
+    padding: 5rem 1rem;
+    animation: fadeUp 0.5s var(--ease);
+  }
+  .empty-state .empty-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 64px;
+    color: var(--line-strong);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .empty-state p {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink-3);
+    margin-bottom: 4px;
+  }
+  .empty-state small {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-4);
+  }
+
+  /* Footer mark */
+  .footer-mark {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+
+  /* ── Vendor card click affordance ── */
+  .vendor-card { cursor: pointer; }
+  .vendor-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Side panel ── */
+  .panel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 13, 12, 0.32);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+    z-index: 50;
+  }
+  .panel-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(460px, 92vw);
+    background: var(--surface-elevated);
+    border-left: 1px solid var(--line);
+    box-shadow: -24px 0 48px -24px rgba(0,0,0,0.18);
+    transform: translateX(100%);
+    transition: transform 0.45s var(--ease);
+    z-index: 51;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .panel.open { transform: translateX(0); }
+
+  .panel-header {
+    padding: 1.75rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .panel-eyebrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+  .panel-close {
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px 11px 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+  }
+  .panel-close:hover {
+    border-color: var(--ink-1);
+    color: var(--ink-1);
+  }
+  .panel-name {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink-1);
+    margin-bottom: 10px;
+  }
+  .panel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .panel-body {
+    padding: 1.5rem 1.75rem 2rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+  .panel-section {
+    margin-bottom: 2rem;
+  }
+  .panel-section:last-child { margin-bottom: 0; }
+  .panel-section-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .panel-section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .contact-row {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 12px;
+    align-items: start;
+    padding: 9px 0;
+    font-size: 14px;
+    color: var(--ink-1);
+    border-bottom: 1px dashed var(--line);
+  }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-row svg {
+    width: 14px;
+    height: 14px;
+    color: var(--ink-3);
+    margin-top: 4px;
+  }
+  .contact-row a {
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .contact-row a:hover { text-decoration: underline; }
+  .contact-row .key {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .contact-empty {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-3);
+    line-height: 1.6;
+    padding: 14px 0;
+  }
+  .contact-empty code {
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 11px;
+    background: var(--bg-grain);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--ink-2);
+  }
+
+  .panel-memo {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    padding: 12px 14px;
+    background: var(--bg-grain);
+    border-radius: var(--radius);
+    margin-top: 10px;
+  }
+
+  .history-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px 16px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-project {
+    font-size: 13px;
+    color: var(--ink-1);
+    line-height: 1.4;
+  }
+  .history-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 3px;
+  }
+  .history-price {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-1);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .history-price.unset {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-4);
+    font-size: 13px;
+  }
+
+  /* ── Attached files inside history items ── */
+  .history-files {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .file-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-2);
+    padding: 4px 0;
+  }
+  .file-row .file-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-grain);
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    letter-spacing: -0.02em;
+  }
+  .file-row .file-icon.pdf { background: #FBE9E5; color: #8B3A1F; }
+  .file-row .file-icon.image { background: #E8F0E2; color: #4A6B3E; }
+  .file-row .file-icon.spreadsheet { background: #E2EBF7; color: #1E40AF; }
+  .file-row .file-icon.doc { background: #F3EBDB; color: #8B6914; }
+  @media (prefers-color-scheme: dark) {
+    .file-row .file-icon { background: var(--bg-grain); }
+    .file-row .file-icon.pdf { background: #2A1A18; color: #D89985; }
+    .file-row .file-icon.image { background: #1A2118; color: #A8C89A; }
+    .file-row .file-icon.spreadsheet { background: #1A2238; color: #93B4FF; }
+    .file-row .file-icon.doc { background: #26200F; color: #D4B87A; }
+  }
+  .file-row .file-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ink-1);
+    text-decoration: none;
+    transition: color 0.15s var(--ease);
+  }
+  .file-row .file-name:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .file-row .file-actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .file-row .file-btn {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    text-decoration: none;
+    padding: 3px 8px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    transition: all 0.2s var(--ease);
+    background: transparent;
+    cursor: pointer;
+  }
+  .file-row .file-btn:hover {
+    border-color: var(--ink-1);
+    color: var(--ink-1);
+  }
+  .file-row.fallback {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-3);
+    font-size: 12px;
+  }
+  .file-row.fallback a {
+    color: var(--ink-2);
+    text-decoration: none;
+    margin-left: auto;
+    font-family: var(--mono);
+    font-style: normal;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .file-row.fallback a:hover { color: var(--accent); }
+
+  .panel-footer {
+    padding: 1.25rem 1.75rem;
+    border-top: 1px solid var(--line);
+    flex-shrink: 0;
+  }
+  .panel-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    text-decoration: none;
+    transition: all 0.2s var(--ease);
+  }
+  .panel-cta:hover { color: var(--accent); gap: 9px; }
+  .panel-cta svg { width: 11px; height: 11px; }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(8px) scale(0.995); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .container { padding: 2.5rem 1.25rem 3rem; }
+    .title { font-size: 38px; }
+    .filter-row {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .filter-label { padding-top: 0; }
+    .card-top { flex-direction: column; gap: 6px; }
+    .card-price { text-align: left; }
+    .budget-val { min-width: 90px; font-size: 11px; }
+    .card-footer { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .card-project { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+
+<main class="container">
+  <header>
+    <div class="eyebrow">Brand Design / Vendor Index</div>
+    <h1 class="title">협력 업체 <em>파인더</em></h1>
+    <p class="subtitle">프로젝트 조건에 맞는 업체를 편집자의 시선으로 정렬합니다. 단가, 카테고리, 추천 이력을 기준으로 필터링해 보세요.</p>
+  </header>
+
+  <section class="filters">
+    <div class="filter-row">
+      <span class="filter-label">01 / Category</span>
+      <div class="chips" id="catFilter">
+        <button class="chip active" data-val="all">All</button>
+        <button class="chip" data-val="인쇄물">인쇄물</button>
+        <button class="chip" data-val="패키지">패키지</button>
+        <button class="chip" data-val="굿즈">굿즈</button>
+        <button class="chip" data-val="사진/촬영">사진/촬영</button>
+        <button class="chip" data-val="디자인">디자인</button>
+        <button class="chip" data-val="레터링">레터링</button>
+        <button class="chip" data-val="폰트">폰트</button>
+        <button class="chip" data-val="사이니지">사이니지</button>
+        <button class="chip" data-val="시공">시공</button>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">02 / Budget</span>
+      <div class="budget-track">
+        <input type="range" id="budgetSlider" min="0" max="110000000" step="1000000" value="110000000" />
+        <span class="budget-val" id="budgetVal">NO LIMIT</span>
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <span class="filter-label">03 / Preset</span>
+      <label class="switch">
+        <input type="checkbox" id="recOnly" />
+        <span class="switch-track"></span>
+        <span class="switch-text">추천 업체만 보기</span>
+      </label>
+    </div>
+  </section>
+
+  <div class="results-meta">
+    <div class="results-count" id="resultCount"></div>
+    <div class="results-hint">
+      <button id="refreshBtn" class="refresh-btn" title="노션에서 최신 데이터 즉시 가져오기" aria-label="새로고침">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 8a6 6 0 1 1-1.76-4.24"/><path d="M14 2.5V6h-3.5"/></svg>
+      </button>
+      <span id="syncStatus">Loading…</span>
+      <span style="margin-left:8px;opacity:.5;">·</span>
+      <span style="margin-left:8px;">Sorted by Status → Value</span>
+    </div>
+  </div>
+
+  <div class="vendor-list" id="results"></div>
+
+  <div class="footer-mark">
+    <span>© Brand Design</span>
+    <span id="footerDate"></span>
+  </div>
+</main>
+
+<!-- ── Side Panel ── -->
+<div class="panel-backdrop" id="panelBackdrop"></div>
+<aside class="panel" id="panel" aria-hidden="true" aria-labelledby="panelName">
+  <div id="panelContent"></div>
+</aside>
+
+<script>
+// ── Inline snapshot (file:// 로 열어도 동작하도록 임베드) ──────
+// 서버가 켜져 있으면 /api/vendors 가 이걸 덮어씁니다.
+const SNAPSHOT = [
+  { "id": "295a597878a080418a23e1d4aba44fa5", "name": "이토스", "status": "green", "type": ["제작"], "cat": ["인쇄물"], "price": 5940000, "duration": "약 2주", "leadDays": 14, "note": "100장씩, 600통", "project": "오늘의집 리브랜딩_명함", "url": "https://www.notion.so/ohouse/295a597878a080418a23e1d4aba44fa5" },
+  { "id": "296a597878a080cca582c39936b1f0b5", "name": "이토스", "status": "green", "type": ["제작"], "cat": ["인쇄물"], "price": 2046000, "duration": "약 1달", "leadDays": 30, "note": "1000장 제작 기준", "project": "오늘의집 리브랜딩_쇼핑백", "url": "https://www.notion.so/ohouse/296a597878a080cca582c39936b1f0b5" },
+  { "id": "296a597878a080e08726de7e5bfc92e1", "name": "이토스", "status": "green", "type": ["제작"], "cat": ["인쇄물"], "price": 693000, "duration": "약 2주", "leadDays": 14, "note": "각 1000장씩", "project": "오늘의집 리브랜딩_봉투 2종", "url": "https://www.notion.so/ohouse/296a597878a080e08726de7e5bfc92e1" },
+  { "id": "295a597878a080c6a473d7669bcf376f", "name": "인타임", "status": "warn", "type": ["제작"], "cat": ["인쇄물"], "price": 930600, "duration": "", "leadDays": null, "note": "850개 제작, 다수 불량으로 사용 x", "project": "오늘의집 리브랜딩_스티커 제작", "url": "https://www.notion.so/ohouse/295a597878a080c6a473d7669bcf376f" },
+  { "id": "295a597878a080d88ef0e8c01fea2208", "name": "랩크리트", "status": "green", "type": ["제작"], "cat": ["굿즈"], "price": 9020000, "duration": "약 1달 반", "leadDays": 45, "note": "금형비 70만원, 본품 개당 5만원 150개 제작", "project": "스페셜크리에이터_상패_제작비용", "url": "https://www.notion.so/ohouse/295a597878a080d88ef0e8c01fea2208" },
+  { "id": "295a597878a0802eb67ae8327acb6da7", "name": "㈜메이크포유", "status": "orange", "type": ["제작"], "cat": ["굿즈"], "price": 100204326, "duration": "-", "leadDays": null, "note": "150개 제작, 진행 x", "project": "스페셜크리에이터_상패_황동 제작비용", "url": "https://www.notion.so/ohouse/295a597878a0802eb67ae8327acb6da7" },
+  { "id": "295a597878a08093b62ef1e4b5431baf", "name": "랩크리트", "status": "green", "type": ["디자인"], "cat": ["디자인"], "price": 660000, "duration": "", "leadDays": null, "note": "상패 디자인 모델링 비용 1건", "project": "스페셜크리에이터_상패_모델링 비용", "url": "https://www.notion.so/ohouse/295a597878a08093b62ef1e4b5431baf" },
+  { "id": "2b9a597878a0806985e2ccd144d420a9", "name": "박스마스터", "status": "green", "type": ["제작"], "cat": ["패키지"], "price": 8820000, "duration": "약 1달 반", "leadDays": 45, "note": "150개 패키지 제작, 칼선 개발비 & 샘플비 포함", "project": "스페셜크리에이터_상패_패키지 제작 비용", "url": "https://www.notion.so/ohouse/2b9a597878a0806985e2ccd144d420a9" },
+  { "id": "296a597878a080b69b09ed534a0cdb98", "name": "LCC", "status": "orange", "type": ["촬영"], "cat": ["사진/촬영"], "price": 30800000, "duration": "", "leadDays": null, "note": "2일 촬영 기준, 공간을 제외한 나머지 전부 포함", "project": "오늘의집 스탠다드_촬영", "url": "https://www.notion.so/ohouse/296a597878a080b69b09ed534a0cdb98" },
+  { "id": "295a597878a0806ea87ff68db5e84e00", "name": "단필름", "status": "none", "type": ["촬영"], "cat": ["사진/촬영"], "price": 4100000, "duration": "", "leadDays": null, "note": "모델, 미술감독, 조명감독 등 포함", "project": "오늘의집 스탠다드_촬영비용", "url": "https://www.notion.so/ohouse/295a597878a0806ea87ff68db5e84e00" },
+  { "id": "295a597878a080f189b2c3759b894107", "name": "이도타입", "status": "orange", "type": ["디자인"], "cat": ["디자인", "폰트"], "price": 11000000, "duration": "", "leadDays": null, "note": "국영문 각 1종", "project": "오늘의집 리브랜딩_워드마크 국영문 개발비용", "url": "https://www.notion.so/ohouse/295a597878a080f189b2c3759b894107" },
+  { "id": "295a597878a0804d94a9c84764542918", "name": "양장점", "status": "none", "type": ["디자인"], "cat": ["디자인", "폰트"], "price": 16000000, "duration": "", "leadDays": null, "note": "국영문 각 1종", "project": "오늘의집 리브랜딩_워드마크 국영문 개발비용", "url": "https://www.notion.so/ohouse/295a597878a0804d94a9c84764542918" },
+  { "id": "295a597878a080f6b813f8541b09b370", "name": "조소희", "status": "green", "type": ["디자인"], "cat": ["디자인", "레터링"], "price": 2160000, "duration": "1주일 반", "leadDays": 10, "note": "시안 2개 이상", "project": "오늘의집 리브랜딩_캠페인 레터링 제작", "url": "https://www.notion.so/ohouse/295a597878a080f6b813f8541b09b370" },
+  { "id": "2b7a597878a0804bb2b0f19d186a9b6f", "name": "팟 (김현진)", "status": "none", "type": ["디자인"], "cat": ["디자인", "레터링"], "price": 5000000, "duration": "", "leadDays": null, "note": "2종, 각 시안 2개 이상, 수정 2회", "project": "오늘의집 PICK & 미식100선_이벤트 레터링 제작", "url": "https://www.notion.so/ohouse/2b7a597878a0804bb2b0f19d186a9b6f" },
+  { "id": "295a597878a080a1aba2c9439b5e9a0f", "name": "보담디자인", "status": "none", "type": ["제작"], "cat": ["사이니지", "시공"], "price": 7400000, "duration": "", "leadDays": null, "note": "시공비 포함", "project": "오늘의집 리브랜딩_물류 사이니지 교체", "url": "https://www.notion.so/ohouse/295a597878a080a1aba2c9439b5e9a0f" },
+  { "id": "295a597878a080e88b87e00c3e233485", "name": "룩앤두", "status": "none", "type": ["제작"], "cat": ["사이니지"], "price": 1265000, "duration": "", "leadDays": null, "note": "스텐실 조명형 1종, 시공비 포함", "project": "오늘의집 키친 팝업_사이니지", "url": "https://www.notion.so/ohouse/295a597878a080e88b87e00c3e233485" },
+  { "id": "2e7a597878a080f8925dd4e8116aa2fe", "name": "단필름", "status": "none", "type": ["촬영"], "cat": ["사진/촬영"], "price": 300000, "duration": "", "leadDays": null, "note": "최초 50만원, 빠르게 단일 제품 컷만 촬영", "project": "오늘의집 리브랜딩_줄자 촬영", "url": "https://www.notion.so/ohouse/2e7a597878a080f8925dd4e8116aa2fe" },
+  { "id": "2b9a597878a08003a082f4b4856b526f", "name": "이도타입", "status": "orange", "type": ["디자인"], "cat": ["폰트"], "price": 81000000, "duration": "", "leadDays": null, "note": "한글 2,780 규격 / 라틴베이직 / 웨이트 3종", "project": "오늘의집 리브랜딩_국영문 폰트 개발비용", "url": "https://www.notion.so/ohouse/2b9a597878a08003a082f4b4856b526f" },
+  { "id": "2fda597878a080f9bde2fad9ddca6ba8", "name": "세원정밀", "status": "green", "type": ["제작"], "cat": ["패키지"], "price": 12383000, "duration": "약 3주", "leadDays": 21, "note": "500개 제작, 배송비 포함 객단가 24,766원", "project": "패키지 할인_라이프 바인더 제작", "url": "https://www.notion.so/ohouse/2fda597878a080f9bde2fad9ddca6ba8" },
+  { "id": "2fea597878a0808b8e3cf32c5569f8f3", "name": "LCC", "status": "orange", "type": ["촬영"], "cat": ["사진/촬영"], "price": 3960000, "duration": "", "leadDays": null, "note": "14컷 기준", "project": "패키지 할인_라이프 바인더 제품 촬영", "url": "https://www.notion.so/ohouse/2fea597878a0808b8e3cf32c5569f8f3" },
+  { "id": "305a597878a080dea513fb8aa7588367", "name": "이정민 작가", "status": "none", "type": ["촬영"], "cat": ["사진/촬영"], "price": null, "duration": "", "leadDays": null, "note": "", "project": "패키지 할인_라이프 바인더 제품 촬영", "url": "https://www.notion.so/ohouse/305a597878a080dea513fb8aa7588367" },
+  { "id": "2fea597878a080b482b9f57d5d9a9156", "name": "(주)테디", "status": "green", "type": ["제작"], "cat": ["시공"], "price": 1496000, "duration": "", "leadDays": null, "note": "유리벽 5면 기준", "project": "오늘의집 시공 지하 상담실 시트작업", "url": "https://www.notion.so/ohouse/2fea597878a080b482b9f57d5d9a9156" },
+  { "id": "2fea597878a080aa9055d9e82ef3ce42", "name": "레이저그라피", "status": "green", "type": ["제작"], "cat": ["굿즈", "기타"], "price": 396000, "duration": "1주", "leadDays": 7, "note": "스펀지 패드 제작", "project": "오늘의집 인테리어 파트너 어워즈 2026_스펀지 패드", "url": "https://www.notion.so/ohouse/2fea597878a080aa9055d9e82ef3ce42" },
+  { "id": "2fea597878a0805ab4f6d7244524e2ff", "name": "해머트로피", "status": "green", "type": ["제작"], "cat": ["굿즈"], "price": 7210500, "duration": "약 3주", "leadDays": 21, "note": "23개 제작, 알루미늄 아노다이징", "project": "오늘의집 인테리어 파트너 어워즈 2026_트로피", "url": "https://www.notion.so/ohouse/2fea597878a0805ab4f6d7244524e2ff" },
+  { "id": "2fea597878a080a49e12f6ceacb92075", "name": "세원정밀", "status": "green", "type": ["제작"], "cat": ["패키지"], "price": 2194000, "duration": "2주", "leadDays": 14, "note": "30개 제작, 스펀지 패드 포함, 긴급건", "project": "오늘의집 인테리어 파트너 어워즈 2026_싸바리 박스", "url": "https://www.notion.so/ohouse/2fea597878a080a49e12f6ceacb92075" },
+  { "id": "2c5a597878a080b5831add0cf44870af", "name": "PAPERBELLA", "status": "green", "type": ["제작"], "cat": ["인쇄물"], "price": null, "duration": "", "leadDays": null, "note": "단색 지류 봉투, 종이파일과 박 위주 후가공 가능업체", "project": "구매 업체 (지류)", "url": "https://www.notion.so/ohouse/2c5a597878a080b5831add0cf44870af" },
+  { "id": "33ea597878a0807bb4d5ef779f74840f", "name": "test 업체", "status": "none", "type": ["제작"], "cat": ["인쇄물"], "price": 3000000, "duration": "3일", "leadDays": null, "note": "", "project": "test", "url": "https://www.notion.so/ohouse/33ea597878a0807bb4d5ef779f74840f" },
+  { "id": "33ea597878a080429333ee26365dbfe4", "name": "테스트업첩", "status": "none", "type": ["제작"], "cat": ["인쇄물", "사진/촬영", "레터링"], "price": null, "duration": "2", "leadDays": 30, "note": "", "project": "테스트업체", "url": "https://www.notion.so/ohouse/33ea597878a080429333ee26365dbfe4" },
+  { "id": "33ea597878a080989660f090206d9901", "name": "testtest", "status": "none", "type": ["촬영"], "cat": ["폰트"], "price": null, "duration": "", "leadDays": null, "note": "", "project": "test2", "url": "https://www.notion.so/ohouse/33ea597878a080989660f090206d9901" }
+];
+
+// ── Inline contacts (file:// fallback) ──────────────────────
+// 서버 모드에서는 contacts.json 이 자동으로 머지되어 vendor.contact 에 들어옴.
+// file:// 모드에서는 이 객체가 사용됨. 키는 vendor name 과 정확히 일치해야 함.
+const CONTACTS = {
+  "이토스":       { homepage: "", phone: "", email: "", manager: "", memo: "인쇄물 전반 — 명함/쇼핑백/봉투" },
+  "인타임":       { homepage: "", phone: "", email: "", manager: "", memo: "스티커 다수 불량 이력. 사용 보류" },
+  "랩크리트":     { homepage: "", phone: "", email: "", manager: "", memo: "상패/굿즈 모델링·제작" },
+  "㈜메이크포유": { homepage: "", phone: "", email: "", manager: "", memo: "황동 가공 — 견적만 받음" },
+  "박스마스터":   { homepage: "", phone: "", email: "", manager: "", memo: "패키지 칼선/샘플 제작" },
+  "LCC":          { homepage: "", phone: "", email: "", manager: "", memo: "프로덕션 촬영 (모델/스타일링/감독 포함)" },
+  "단필름":       { homepage: "", phone: "", email: "", manager: "", memo: "단일 컷 빠른 촬영 가능" },
+  "이도타입":     { homepage: "", phone: "", email: "", manager: "", memo: "워드마크/폰트 패밀리 개발" },
+  "양장점":       { homepage: "", phone: "", email: "", manager: "", memo: "워드마크 비교 견적" },
+  "조소희":       { homepage: "", phone: "", email: "", manager: "", memo: "캠페인 레터링" },
+  "팟 (김현진)":  { homepage: "", phone: "", email: "", manager: "", memo: "이벤트 레터링" },
+  "보담디자인":   { homepage: "", phone: "", email: "", manager: "", memo: "사이니지 + 시공 일괄" },
+  "룩앤두":       { homepage: "", phone: "", email: "", manager: "", memo: "스텐실 조명형 사이니지" },
+  "세원정밀":     { homepage: "", phone: "", email: "", manager: "", memo: "패키지 제작 — 라이프 바인더, 싸바리 박스" },
+  "이정민 작가":  { homepage: "", phone: "", email: "", manager: "", memo: "제품 촬영 — 견적 미정" },
+  "(주)테디":     { homepage: "", phone: "", email: "", manager: "", memo: "유리벽 시트 시공" },
+  "레이저그라피": { homepage: "", phone: "", email: "", manager: "", memo: "스펀지 패드/소형 굿즈" },
+  "해머트로피":   { homepage: "", phone: "", email: "", manager: "", memo: "어워즈 트로피 — 알루미늄 아노다이징" },
+  "PAPERBELLA":   { homepage: "https://smartstore.naver.com/paperbella", phone: "", email: "", manager: "", memo: "단색 지류 봉투, 종이파일, 박 후가공" },
+  "test 업체":    { homepage: "https://ohou.se/", phone: "020000000", email: "", manager: "", memo: "테스트 — 노션 동기화 검증용" },
+  "테스트업첩":   { homepage: "https://naver.com", phone: "", email: "", manager: "", memo: "" }
+};
+
+function getContact(vendorName) {
+  // 서버 모드에서 vendor.contact 가 이미 붙어 있으면 그걸 우선
+  const vendor = DATA.find((d) => d.name === vendorName);
+  if (vendor && vendor.contact) return vendor.contact;
+  return CONTACTS[vendorName] || null;
+}
+
+// 처음엔 인라인 스냅샷으로 시작 → 서버가 있으면 fetch 로 덮어씀
+let DATA = SNAPSHOT.slice();
+let lastSync = new Date();
+let syncSource = "snapshot";
+let isRefreshing = false;
+
+const POLL_MS = 3_000; // 3초마다 폴링 (서버 캐시 2초)
+// file:// 모드에서 시도할 서버 후보 (npm start 가 떠 있으면 자동 연결)
+const SERVER_FALLBACKS = ["http://localhost:5173", "http://127.0.0.1:5173"];
+
+async function tryServerFetch(base, force) {
+  const path = "/api/vendors" + (force ? "?force=1" : "");
+  const url = base + path;
+  const r = await fetch(url, { cache: "no-store" });
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  return r.json();
+}
+
+async function loadVendors({ force = false } = {}) {
+  // 1) 같은 origin (서버 모드, http://localhost:5173 으로 접속한 경우)
+  if (location.protocol !== "file:") {
+    try {
+      const json = await tryServerFetch("", force);
+      syncSource = json.source === "live" ? "live" : "snapshot";
+      return json.vendors || [];
+    } catch (e) { /* fall through */ }
+  }
+  // 2) file:// 모드: localhost 후보를 순차 시도 (서버가 켜져 있으면 자동 연결됨)
+  if (location.protocol === "file:") {
+    for (const base of SERVER_FALLBACKS) {
+      try {
+        const json = await tryServerFetch(base, force);
+        syncSource = json.source === "live" ? "live" : "snapshot";
+        return json.vendors || [];
+      } catch (e) { /* try next */ }
+    }
+  }
+  // 3) 둘 다 실패 → 인라인 스냅샷 유지
+  return null;
+}
+
+function updateSyncStatus() {
+  const el = document.getElementById("syncStatus");
+  if (!el) return;
+  const time = lastSync
+    ? lastSync.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+    : "—";
+  if (syncSource === "live") {
+    el.innerHTML = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#4A6B3E;margin-right:5px;"></span>LIVE · ${time}`;
+  } else if (syncSource === "snapshot") {
+    el.innerHTML = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8B6914;margin-right:5px;"></span>SNAPSHOT · ${time}`;
+  } else if (syncSource === "error") {
+    el.innerHTML = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#8B3A1F;margin-right:5px;"></span>OFFLINE`;
+  } else {
+    el.textContent = "Loading…";
+  }
+}
+
+async function refresh(opts = {}) {
+  if (isRefreshing) return;
+  isRefreshing = true;
+  const btn = document.getElementById("refreshBtn");
+  if (btn) btn.classList.add("spinning");
+
+  try {
+    const next = await loadVendors({ force: opts.force });
+    if (next === null) {
+      // fetch 안 했거나 실패 — 인라인 스냅샷 유지
+      if (opts.force) render();
+      return;
+    }
+    const sig = (arr) => arr.map((d) => `${d.id || d.url}:${d.lastEdited || ""}`).join("|");
+    const changed = sig(next) !== sig(DATA);
+    DATA = next;
+    lastSync = new Date();
+    updateSyncStatus();
+    if (changed || opts.force) render();
+  } finally {
+    isRefreshing = false;
+    if (btn) btn.classList.remove("spinning");
+  }
+}
+
+let state = { cat: "all", budget: 110000000, recOnly: false };
+
+function fmt(n) {
+  if (!n) return { text: "TBD", unset: true };
+  return { text: "KRW " + new Intl.NumberFormat("en-US").format(n), unset: false };
+}
+
+function statusBadge(s) {
+  if (s === "green") return '<span class="badge badge-green">Recommended</span>';
+  if (s === "orange") return '<span class="badge badge-orange">Quote only</span>';
+  if (s === "warn") return '<span class="badge badge-warn">Flagged</span>';
+  return "";
+}
+
+function render() {
+  let filtered = DATA.filter(d => {
+    if (state.cat !== "all" && !d.cat.includes(state.cat)) return false;
+    if (d.price && d.price > state.budget && state.budget < 110000000) return false;
+    if (state.recOnly && d.status !== "green") return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    const sOrd = { green: 0, orange: 1, none: 2, warn: 3 };
+    if (sOrd[a.status] !== sOrd[b.status]) return sOrd[a.status] - sOrd[b.status];
+    return (b.price || 0) - (a.price || 0);
+  });
+
+  const n = filtered.length;
+  document.getElementById("resultCount").innerHTML =
+    `<span class="num">${String(n).padStart(2, "0")}</span> ${n === 1 ? "result" : "results"} <em>found</em>`;
+
+  const container = document.getElementById("results");
+  if (n === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-mark">∅</div>
+        <p>조건에 맞는 업체가 없습니다</p>
+        <small>Try adjusting the filters</small>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map((d, i) => {
+    const isRec = d.status === "green";
+    const priceObj = fmt(d.price);
+    return `
+      <article class="vendor-card${isRec ? " recommended" : ""}" style="animation-delay: ${i * 0.04}s" data-vendor="${escapeAttr(d.name)}" tabindex="0" role="button" aria-label="${escapeAttr(d.name)} 상세 보기">
+        <div class="card-top">
+          <div class="vendor-name-wrap">
+            <span class="vendor-name">${d.name}</span>
+            ${statusBadge(d.status)}
+          </div>
+          <div class="card-price${priceObj.unset ? " unset" : ""}">${priceObj.text}</div>
+        </div>
+        ${d.cat.length ? `<div class="card-tags">${d.cat.map(c => `<span class="tag">${c}</span>`).join("")}</div>` : ""}
+        <div class="card-meta">
+          ${d.duration ? `<span class="meta-item"><span class="meta-key">Lead</span> ${d.duration}</span>` : ""}
+        </div>
+        ${d.note ? `<div class="card-note">${d.note}</div>` : ""}
+        <div class="card-footer">
+          <div class="card-project">— ${d.project}</div>
+          <a class="notion-link" href="${d.url}" target="_blank" rel="noopener" data-stop="1">
+            View in Notion
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h7v7"/><path d="M13 3L6 10"/></svg>
+          </a>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+// ── Side panel ─────────────────────────────────────────────
+const escapeHtml = (s) =>
+  String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+const escapeAttr = escapeHtml;
+
+const ICON = {
+  phone:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>',
+  mail:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>',
+  link:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+  user:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+  ext:    '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h7v7"/><path d="M13 3L6 10"/></svg>',
+};
+
+function fileIconLabel(kind) {
+  if (kind === "pdf") return "PDF";
+  if (kind === "image") return "IMG";
+  if (kind === "spreadsheet") return "XLS";
+  if (kind === "doc") return "DOC";
+  return "FILE";
+}
+
+function renderQuoteFiles(q) {
+  // 실제 첨부 파일이 있을 때만 노출 — 없으면 행 자체가 사라짐
+  // 다운로드는 /api/file 프록시가 처리하므로 서버 모드에서만 동작
+  if (!Array.isArray(q.files) || q.files.length === 0) return "";
+  if (location.protocol === "file:") return "";
+
+  const rows = q.files.map((f) => {
+    const safeName = escapeHtml(f.name);
+    const kind = f.kind || "other";
+    const params = new URLSearchParams({ pageId: q.id, name: f.name });
+    const viewUrl = `/api/file?${params.toString()}&action=view`;
+    const downloadUrl = `/api/file?${params.toString()}&action=download`;
+    return `
+      <div class="file-row">
+        <span class="file-icon ${kind}">${fileIconLabel(kind)}</span>
+        <a class="file-name" href="${escapeAttr(viewUrl)}" target="_blank" rel="noopener" title="새 창에서 미리보기">${safeName}</a>
+        <div class="file-actions">
+          <a class="file-btn" href="${escapeAttr(viewUrl)}" target="_blank" rel="noopener">열기</a>
+          <a class="file-btn" href="${escapeAttr(downloadUrl)}" download="${escapeAttr(f.name)}">다운로드 ↓</a>
+        </div>
+      </div>
+    `;
+  }).join("");
+  return `<div class="history-files">${rows}</div>`;
+}
+
+function statusBadgeBig(s) {
+  if (s === "green") return '<span class="badge badge-green">Recommended</span>';
+  if (s === "orange") return '<span class="badge badge-orange">Quote only</span>';
+  if (s === "warn") return '<span class="badge badge-warn">Flagged</span>';
+  return '<span class="badge" style="background:var(--bg-grain);color:var(--ink-3);">Logged</span>';
+}
+
+function renderContact(contact) {
+  if (!contact) {
+    return `<div class="contact-empty">아직 등록된 연락처가 없습니다.<br><code>contacts.json</code> 또는 HTML <code>CONTACTS</code> 객체에 추가하세요.</div>`;
+  }
+  const rows = [];
+  if (contact.manager) {
+    rows.push(`<div class="contact-row">${ICON.user}<div><span class="key">담당</span>${escapeHtml(contact.manager)}</div></div>`);
+  }
+  if (contact.phone) {
+    const tel = contact.phone.replace(/[^0-9+]/g, "");
+    rows.push(`<div class="contact-row">${ICON.phone}<div><span class="key">Phone</span><a href="tel:${escapeAttr(tel)}">${escapeHtml(contact.phone)}</a></div></div>`);
+  }
+  if (contact.email) {
+    rows.push(`<div class="contact-row">${ICON.mail}<div><span class="key">Email</span><a href="mailto:${escapeAttr(contact.email)}">${escapeHtml(contact.email)}</a></div></div>`);
+  }
+  if (contact.homepage) {
+    const href = contact.homepage.startsWith("http") ? contact.homepage : `https://${contact.homepage}`;
+    const display = contact.homepage.replace(/^https?:\/\//, "");
+    rows.push(`<div class="contact-row">${ICON.link}<div><span class="key">Homepage</span><a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(display)} ↗</a></div></div>`);
+  }
+  const memo = contact.memo ? `<div class="panel-memo">${escapeHtml(contact.memo)}</div>` : "";
+  if (rows.length === 0) {
+    return `<div class="contact-empty">연락처 항목이 비어 있습니다. 메모만 등록되어 있어요.</div>${memo}`;
+  }
+  return rows.join("") + memo;
+}
+
+function openPanel(vendorName) {
+  const quotes = DATA.filter((d) => d.name === vendorName);
+  if (quotes.length === 0) return;
+
+  const contact = getContact(vendorName);
+  const primaryStatus = quotes.find((q) => q.status === "green")?.status
+    || quotes.find((q) => q.status === "orange")?.status
+    || quotes[0].status;
+
+  const allCats = [...new Set(quotes.flatMap((q) => q.cat))];
+
+  const historyHtml = quotes.map((q) => {
+    const priceObj = fmt(q.price);
+    return `
+      <div class="history-item">
+        <div>
+          <div class="history-project">${escapeHtml(q.project)}</div>
+          <div class="history-meta">${q.duration ? escapeHtml(q.duration) + " · " : ""}${q.cat.join(" / ")}</div>
+        </div>
+        <a class="history-price${priceObj.unset ? " unset" : ""}" href="${escapeAttr(q.url)}" target="_blank" rel="noopener" style="text-decoration:none;">${priceObj.text}</a>
+        ${renderQuoteFiles(q)}
+      </div>
+    `;
+  }).join("");
+
+  const tagsHtml = allCats.map((t) => `<span class="tag">${escapeHtml(t)}</span>`).join("");
+
+  document.getElementById("panelContent").innerHTML = `
+    <div class="panel-header">
+      <div class="panel-eyebrow">
+        <span>Vendor / ${quotes.length} ${quotes.length === 1 ? "quote" : "quotes"}</span>
+        <button class="panel-close" id="panelCloseBtn">Close ✕</button>
+      </div>
+      <h2 class="panel-name" id="panelName">${escapeHtml(vendorName)}</h2>
+      <div>${statusBadgeBig(primaryStatus)}</div>
+      ${tagsHtml ? `<div class="panel-tags">${tagsHtml}</div>` : ""}
+    </div>
+    <div class="panel-body">
+      <section class="panel-section">
+        <div class="panel-section-title">Contact</div>
+        ${renderContact(contact)}
+      </section>
+      <section class="panel-section">
+        <div class="panel-section-title">History · ${quotes.length}</div>
+        ${historyHtml}
+      </section>
+    </div>
+    <div class="panel-footer">
+      <a class="panel-cta" href="${escapeAttr(quotes[0].url)}" target="_blank" rel="noopener">
+        Open first quote in Notion ${ICON.ext}
+      </a>
+    </div>
+  `;
+
+  document.getElementById("panel").classList.add("open");
+  document.getElementById("panel").setAttribute("aria-hidden", "false");
+  document.getElementById("panelBackdrop").classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("panelCloseBtn").addEventListener("click", closePanel);
+}
+
+function closePanel() {
+  document.getElementById("panel").classList.remove("open");
+  document.getElementById("panel").setAttribute("aria-hidden", "true");
+  document.getElementById("panelBackdrop").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+document.getElementById("panelBackdrop").addEventListener("click", closePanel);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closePanel();
+});
+
+// 카드 클릭 → 패널 열기 (이벤트 위임)
+document.getElementById("results").addEventListener("click", (e) => {
+  if (e.target.closest("[data-stop]")) return; // Notion 링크는 통과
+  const card = e.target.closest(".vendor-card");
+  if (!card) return;
+  const name = card.getAttribute("data-vendor");
+  if (name) openPanel(name);
+});
+document.getElementById("results").addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest(".vendor-card");
+  if (!card) return;
+  e.preventDefault();
+  openPanel(card.getAttribute("data-vendor"));
+});
+
+function setupChips(containerId, stateKey) {
+  document.querySelectorAll(`#${containerId} .chip`).forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(`#${containerId} .chip`).forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state[stateKey] = btn.dataset.val;
+      render();
+    });
+  });
+}
+
+setupChips("catFilter", "cat");
+
+const slider = document.getElementById("budgetSlider");
+const budgetVal = document.getElementById("budgetVal");
+slider.addEventListener("input", () => {
+  const v = parseInt(slider.value);
+  state.budget = v;
+  budgetVal.textContent = v >= 110000000
+    ? "NO LIMIT"
+    : "≤ " + new Intl.NumberFormat("en-US").format(v);
+  render();
+});
+
+document.getElementById("recOnly").addEventListener("change", e => {
+  state.recOnly = e.target.checked;
+  render();
+});
+
+// Footer date
+const now = new Date();
+document.getElementById("footerDate").textContent =
+  now.toISOString().slice(0, 10).replace(/-/g, ".");
+
+// 초기 렌더: 인라인 스냅샷으로 즉시 표시 → 서버 있으면 덮어쓰기
+updateSyncStatus();
+render();
+refresh({ force: true });
+
+// 수동 새로고침 버튼 — 캐시 우회 (force=1)
+document.getElementById("refreshBtn").addEventListener("click", () => {
+  refresh({ force: true });
+});
+// ⌘R 대신 R 키 단축키
+document.addEventListener("keydown", (e) => {
+  if (e.key === "r" && !e.metaKey && !e.ctrlKey && !e.altKey &&
+      !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
+    e.preventDefault();
+    refresh({ force: true });
+  }
+});
+
+// 폴링 (file:// 모드에서도 localhost 서버에 자동 연결 시도)
+setInterval(refresh, POLL_MS);
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) refresh({ force: true });
+});
+window.addEventListener("focus", () => refresh({ force: true }));
+</script>
+</body>
+</html>

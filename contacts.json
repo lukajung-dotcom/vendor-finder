@@ -1,0 +1,152 @@
+{
+  "_comment": "업체별 연락처 마스터. 키는 vendors 데이터의 'name' 과 정확히 일치해야 함. 비워두면 패널에서 '미등록' 으로 표시됨. 노션 마스터 DB로 마이그레이션 시 이 파일을 그대로 자동 변환할 수 있도록 같은 스키마 유지.",
+  "vendors": {
+    "이토스": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "인쇄물 전반 — 명함/쇼핑백/봉투 등"
+    },
+    "인타임": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "스티커 다수 불량 이력. 사용 보류"
+    },
+    "랩크리트": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "상패/굿즈 모델링·제작"
+    },
+    "㈜메이크포유": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "황동 가공 — 견적만 받음"
+    },
+    "박스마스터": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "패키지 칼선/샘플 제작"
+    },
+    "LCC": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "프로덕션 촬영 (모델/스타일링/감독 포함)"
+    },
+    "단필름": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "단일 컷 빠른 촬영 가능"
+    },
+    "이도타입": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "워드마크/폰트 패밀리 개발"
+    },
+    "양장점": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "워드마크 비교 견적"
+    },
+    "조소희": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "캠페인 레터링"
+    },
+    "팟 (김현진)": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "이벤트 레터링"
+    },
+    "보담디자인": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "사이니지 + 시공 일괄"
+    },
+    "룩앤두": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "스텐실 조명형 사이니지"
+    },
+    "세원정밀": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "패키지 제작 — 라이프 바인더, 싸바리 박스"
+    },
+    "이정민 작가": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "제품 촬영 — 견적 미정"
+    },
+    "(주)테디": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "유리벽 시트 시공"
+    },
+    "레이저그라피": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "스펀지 패드/소형 굿즈"
+    },
+    "해머트로피": {
+      "homepage": "",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "어워즈 트로피 — 알루미늄 아노다이징"
+    },
+    "PAPERBELLA": {
+      "homepage": "https://smartstore.naver.com/paperbella",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": "단색 지류 봉투, 종이파일, 박 후가공"
+    },
+    "test 업체": {
+      "homepage": "https://ohou.se/",
+      "phone": "020000000",
+      "email": "",
+      "manager": "",
+      "memo": "테스트 — 노션 동기화 검증용"
+    },
+    "테스트업첩": {
+      "homepage": "https://naver.com",
+      "phone": "",
+      "email": "",
+      "manager": "",
+      "memo": ""
+    }
+  }
+}
