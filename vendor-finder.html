@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>협력 업체 파인더 — Brand Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --text-1: #1A1A19;
+    --text-2: #6B6B66;
+    --text-3: #9C9C96;
+    --border: #E8E8E3;
+    --border-hover: #D0D0CA;
+    --accent: #2C5FD1;
+    --accent-bg: #EBF0FB;
+    --accent-text: #1B3F8F;
+    --green-bg: #E8F5E4;
+    --green-text: #2D6B22;
+    --orange-bg: #FEF3E2;
+    --orange-text: #8B5E14;
+    --red-bg: #FDECEC;
+    --red-text: #8B2222;
+    --tag-bg: #F2F2EE;
+    --tag-text: #5A5A55;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 0.5px rgba(0,0,0,0.03);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-1);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 2rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .header-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-1);
+    margin-bottom: 4px;
+  }
+  .header p {
+    font-size: 14px;
+    color: var(--text-2);
+  }
+
+  /* Filter Sections */
+  .filter-block {
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  .filter-block:nth-child(2) { animation-delay: 0.05s; }
+  .filter-block:nth-child(3) { animation-delay: 0.1s; }
+
+  .filter-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: var(--surface);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .chip:hover {
+    border-color: var(--border-hover);
+    color: var(--text-1);
+  }
+  .chip.active {
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    border-color: transparent;
+    font-weight: 500;
+  }
+
+  /* Budget Row */
+  .budget-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.25rem;
+    animation: fadeUp 0.5s ease 0.15s both;
+  }
+  .budget-row .filter-label { margin-bottom: 0; white-space: nowrap; }
+  .budget-row input[type=range] {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    outline: none;
+  }
+  .budget-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  .budget-row input[type=range]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 4px rgba(44,95,209,0.12);
+  }
+  .budget-val {
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 100px;
+    text-align: right;
+    color: var(--text-1);
+  }
+
+  /* Toggle */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.75rem;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+  .toggle-row input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  .toggle-row label {
+    font-size: 13px;
+    color: var(--text-2);
+    cursor: pointer;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Result count */
+  .result-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    animation: fadeUp 0.5s ease 0.25s both;
+  }
+  .result-count {
+    font-size: 13px;
+    color: var(--text-3);
+  }
+
+  /* Cards */
+  .vendor-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.15s, box-shadow 0.2s;
+    animation: fadeUp 0.35s ease both;
+  }
+  .vendor-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .vendor-card.recommended {
+    border-color: var(--accent);
+    border-width: 1.5px;
+  }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .vendor-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-1);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-left: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  .badge-green { background: var(--green-bg); color: var(--green-text); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange-text); }
+  .badge-warn { background: var(--red-bg); color: var(--red-text); }
+
+  .card-price {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--text-1);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    border-radius: 100px;
+  }
+
+  .card-details {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+  .card-details span { display: block; }
+
+  .card-project {
+    font-size: 13px;
+    color: var(--text-3);
+    margin-top: 6px;
+  }
+
+  .notion-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 8px;
+    font-weight: 500;
+    transition: opacity 0.15s;
+  }
+  .notion-link:hover { opacity: 0.7; }
+  .notion-link svg { width: 14px; height: 14px; }
+
+  .empty-state {
+    text-align: center;
+    padding: 3.5rem 1rem;
+    color: var(--text-3);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .empty-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    opacity: 0.5;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 500px) {
+    .container { padding: 1.25rem 1rem 2rem; }
+    .header h1 { font-size: 20px; }
+    .card-top { flex-direction: column; gap: 4px; }
+    .card-price { text-align: left; }
+    .budget-val { min-width: 80px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="header-label">Brand Design</div>
+    <h1>협력 업체 파인더</h1>
+    <p>프로젝트 조건에 맞는 업체를 빠르게 찾아보세요</p>
+  </div>
+
+  <div class="filter-block">
+    <span class="filter-label">구분</span>
+    <div class="chips" id="typeFilter">
+      <button class="chip active" data-val="all">전체</button>
+      <button class="chip" data-val="제작">제작</button>
+      <button class="chip" data-val="디자인">디자인</button>
+      <button class="chip" data-val="촬영">촬영</button>
+    </div>
+  </div>
+
+  <div class="filter-block">
+    <span class="filter-label">세부 카테고리</span>
+    <div class="chips" id="catFilter">
+      <button class="chip active" data-val="all">전체</button>
+      <button class="chip" data-val="인쇄물">인쇄물</button>
+      <button class="chip" data-val="패키지">패키지</button>
+      <button class="chip" data-val="굿즈">굿즈</button>
+      <button class="chip" data-val="사진/촬영">사진/촬영</button>
+      <button class="chip" data-val="디자인">디자인</button>
+      <button class="chip" data-val="레터링">레터링</button>
+      <button class="chip" data-val="폰트">폰트</button>
+      <button class="chip" data-val="사이니지">사이니지</button>
+      <button class="chip" data-val="시공">시공</button>
+    </div>
+  </div>
+
+  <div class="budget-row">
+    <span class="filter-label">예산 상한</span>
+    <input type="range" id="budgetSlider" min="0" max="50000000" step="500000" value="50000000" />
+    <span class="budget-val" id="budgetVal">제한 없음</span>
+  </div>
+
+  <div class="toggle-row">
+    <input type="checkbox" id="recOnly" />
+    <label for="recOnly">추천 업체만 보기 (🟢)</label>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="result-info">
+    <span class="result-count" id="resultCount"></span>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<script>
+const DATA = [
+  { name: "이토스", status: "green", type: ["제작"], cat: ["인쇄물"], price: 5940000, duration: "약 2주", note: "100장씩, 600통", project: "오늘의집 리브랜딩_명함", url: "https://www.notion.so/ohouse/295a597878a080418a23e1d4aba44fa5" },
+  { name: "이토스", status: "green", type: ["제작"], cat: ["인쇄물"], price: 2046000, duration: "약 1달", note: "1000장 제작 기준", project: "오늘의집 리브랜딩_쇼핑백", url: "https://www.notion.so/ohouse/296a597878a080cca582c39936b1f0b5" },
+  { name: "이토스", status: "green", type: ["제작"], cat: ["인쇄물"], price: null, duration: "", note: "봉투 2종 제작", project: "오늘의집 리브랜딩_봉투 2종", url: "https://www.notion.so/ohouse/296a597878a080e08726de7e5bfc92e1" },
+  { name: "인타임", status: "warn", type: ["제작"], cat: [], price: 930600, duration: "", note: "850개 제작, 다수 불량으로 사용 x", project: "오늘의집 리브랜딩_스티커 제작", url: "https://www.notion.so/ohouse/295a597878a080c6a473d7669bcf376f" },
+  { name: "랩크리트", status: "green", type: ["제작"], cat: ["굿즈"], price: 9020000, duration: "약 1달 반", note: "금형비 70만원, 본품 개당 5만원 150개 제작", project: "스페셜크리에이터_상패_제작비용", url: "https://www.notion.so/ohouse/295a597878a080d88ef0e8c01fea2208" },
+  { name: "랩크리트", status: "green", type: ["제작"], cat: ["패키지"], price: null, duration: "", note: "상패 패키지 제작", project: "스페셜크리에이터_상패_패키지 제작 비용", url: "https://www.notion.so/ohouse/2b9a597878a0806985e2ccd144d420a9" },
+  { name: "LCC", status: "orange", type: ["촬영"], cat: ["사진/촬영"], price: 30800000, duration: "", note: "2일 촬영 기준, 공간 제외 전부 포함", project: "오늘의집 스탠다드_촬영", url: "https://www.notion.so/ohouse/296a597878a080b69b09ed534a0cdb98" },
+  { name: "이도타입", status: "orange", type: ["디자인"], cat: ["폰트"], price: 11000000, duration: "", note: "국영문 각 1종", project: "오늘의집 리브랜딩_워드마크 국영문 개발비용", url: "https://www.notion.so/ohouse/295a597878a080f189b2c3759b894107" },
+  { name: "조소희", status: "green", type: ["디자인"], cat: ["디자인", "레터링"], price: 2160000, duration: "1주일 반", note: "시안 2개 이상", project: "오늘의집 리브랜딩_캠페인 레터링 제작", url: "https://www.notion.so/ohouse/295a597878a080f6b813f8541b09b370" },
+  { name: "조소희", status: "green", type: ["디자인"], cat: ["디자인", "레터링"], price: null, duration: "", note: "이벤트 레터링", project: "오늘의집 PICK & 미식100선_이벤트 레터링 제작", url: "https://www.notion.so/ohouse/2b7a597878a0804bb2b0f19d186a9b6f" },
+  { name: "보담디자인", status: "none", type: ["제작"], cat: ["사이니지", "시공"], price: 7400000, duration: "", note: "시공비 포함", project: "오늘의집 리브랜딩_물류 사이니지 교체", url: "https://www.notion.so/ohouse/295a597878a080a1aba2c9439b5e9a0f" },
+  { name: "룩앤두", status: "none", type: ["제작"], cat: ["사이니지"], price: 1265000, duration: "", note: "스텐실 조명형 1종, 시공비 포함", project: "오늘의집 키친 팝업_사이니지", url: "https://www.notion.so/ohouse/295a597878a080e88b87e00c3e233485" },
+  { name: "단필름", status: "none", type: ["촬영"], cat: ["사진/촬영"], price: 300000, duration: "", note: "최초 50만원, 빠르게 단일 제품 컷만 촬영", project: "오늘의집 리브랜딩_줄자 촬영", url: "https://www.notion.so/ohouse/2e7a597878a080f8925dd4e8116aa2fe" },
+  { name: "산돌", status: "green", type: ["디자인"], cat: ["폰트"], price: null, duration: "", note: "국영문 폰트 패밀리 개발", project: "오늘의집 리브랜딩_국영문 폰트 개발비용", url: "https://www.notion.so/ohouse/2b9a597878a08003a082f4b4856b526f" },
+  { name: "PAPERBELLA", status: "green", type: ["제작"], cat: ["인쇄물"], price: null, duration: "", note: "단색 지류 봉투, 종이파일과 박 위주 후가공 가능업체", project: "구매 업체 (지류)", url: "https://www.notion.so/ohouse/2c5a597878a080b5831add0cf44870af" },
+  { name: "시공업체", status: "none", type: ["제작"], cat: ["시공"], price: null, duration: "", note: "지하 상담실 시트작업", project: "오늘의집 시공 지하 상담실 시트작업", url: "https://www.notion.so/ohouse/2fea597878a080b482b9f57d5d9a9156" },
+  { name: "제작업체", status: "none", type: ["제작"], cat: ["굿즈"], price: null, duration: "", note: "인테리어 파트너 어워즈 트로피", project: "인테리어 파트너 어워즈 2026_트로피", url: "https://www.notion.so/ohouse/2fea597878a0805ab4f6d7244524e2ff" },
+  { name: "촬영업체", status: "none", type: ["촬영"], cat: ["사진/촬영"], price: null, duration: "", note: "라이프 바인더 제품 촬영", project: "패키지 할인_라이프 바인더 제품 촬영", url: "https://www.notion.so/ohouse/305a597878a080dea513fb8aa7588367" },
+];
+
+let state = { type: "all", cat: "all", budget: 50000000, recOnly: false };
+
+function fmt(n) {
+  if (!n) return "금액 미기재";
+  return new Intl.NumberFormat("ko-KR").format(n) + "원";
+}
+
+function statusBadge(s) {
+  if (s === "green") return '<span class="badge badge-green">추천</span>';
+  if (s === "orange") return '<span class="badge badge-orange">견적만</span>';
+  if (s === "warn") return '<span class="badge badge-warn">불량 이력</span>';
+  return "";
+}
+
+function render() {
+  let filtered = DATA.filter(d => {
+    if (state.type !== "all" && !d.type.includes(state.type)) return false;
+    if (state.cat !== "all" && !d.cat.includes(state.cat)) return false;
+    if (d.price && d.price > state.budget && state.budget < 50000000) return false;
+    if (state.recOnly && d.status !== "green") return false;
+    return true;
+  });
+
+  filtered.sort((a, b) => {
+    const sOrd = { green: 0, orange: 1, none: 2, warn: 3 };
+    if (sOrd[a.status] !== sOrd[b.status]) return sOrd[a.status] - sOrd[b.status];
+    return (b.price || 0) - (a.price || 0);
+  });
+
+  document.getElementById("resultCount").textContent = filtered.length + "건의 결과";
+
+  const container = document.getElementById("results");
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div>조건에 맞는 업체가 없습니다.<br>필터를 조정해보세요.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map((d, i) => {
+    const isRec = d.status === "green";
+    return `
+      <div class="vendor-card${isRec ? " recommended" : ""}" style="animation-delay: ${i * 0.03}s">
+        <div class="card-top">
+          <div>
+            <span class="vendor-name">${d.name}</span>${statusBadge(d.status)}
+          </div>
+          <div class="card-price">${fmt(d.price)}</div>
+        </div>
+        ${d.cat.length ? `<div class="card-tags">${d.cat.map(c => `<span class="tag">${c}</span>`).join("")}</div>` : ""}
+        <div class="card-details">
+          ${d.duration ? `<span>⏱ 소요 기간: ${d.duration}</span>` : ""}
+          ${d.note ? `<span>📝 ${d.note}</span>` : ""}
+        </div>
+        <div class="card-project">${d.project}</div>
+        <a class="notion-link" href="${d.url}" target="_blank">
+          Notion에서 상세 보기
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h7v7"/><path d="M13 3L6 10"/></svg>
+        </a>
+      </div>
+    `;
+  }).join("");
+}
+
+function setupChips(containerId, stateKey) {
+  document.querySelectorAll(`#${containerId} .chip`).forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(`#${containerId} .chip`).forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      state[stateKey] = btn.dataset.val;
+      render();
+    });
+  });
+}
+
+setupChips("typeFilter", "type");
+setupChips("catFilter", "cat");
+
+const slider = document.getElementById("budgetSlider");
+const budgetVal = document.getElementById("budgetVal");
+slider.addEventListener("input", () => {
+  const v = parseInt(slider.value);
+  state.budget = v;
+  budgetVal.textContent = v >= 50000000 ? "제한 없음" : new Intl.NumberFormat("ko-KR").format(v) + "원";
+  render();
+});
+
+document.getElementById("recOnly").addEventListener("change", e => {
+  state.recOnly = e.target.checked;
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

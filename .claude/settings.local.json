@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Notion__notion-fetch",
+      "mcp__claude_ai_Notion__notion-create-pages",
+      "mcp__claude_ai_Notion__notion-create-database",
+      "mcp__claude_ai_Notion__notion-search",
+      "mcp__claude_ai_Notion__notion-create-view",
+      "mcp__claude_ai_Notion__notion-update-data-source",
+      "mcp__claude_ai_Notion__notion-update-page",
+      "Skill(schedule)",
+      "Skill(schedule:*)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
+      "Bash(brew install:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:eunjinkim-svg.github.io)",
+      "Bash(curl -s \"https://eunjinkim-svg.github.io/brand-design-dashboard/\")",
+      "Bash(curl -s \"https://eunjinkim-svg.github.io/brand-design-dashboard/style.css\")"
+    ]
+  }
+}
