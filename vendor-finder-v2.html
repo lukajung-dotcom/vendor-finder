@@ -1286,9 +1286,9 @@ function fmt(n) {
 }
 
 function statusBadge(s) {
-  if (s === "green") return '<span class="badge badge-green">Recommended</span>';
-  if (s === "orange") return '<span class="badge badge-orange">Quote only</span>';
-  if (s === "warn") return '<span class="badge badge-warn">Flagged</span>';
+  if (s === "green") return '<span class="badge badge-green">추천 업체</span>';
+  if (s === "orange") return '<span class="badge badge-orange">견적만 받음, 진행하지 않음</span>';
+  if (s === "warn") return '<span class="badge badge-warn">불량 이력</span>';
   return "";
 }
 
@@ -1426,10 +1426,10 @@ function renderQuoteFiles(q) {
 }
 
 function statusBadgeBig(s) {
-  if (s === "green") return '<span class="badge badge-green">Recommended</span>';
-  if (s === "orange") return '<span class="badge badge-orange">Quote only</span>';
-  if (s === "warn") return '<span class="badge badge-warn">Flagged</span>';
-  return '<span class="badge" style="background:var(--bg-secondary);color:var(--text-tertiary);">Logged</span>';
+  if (s === "green") return '<span class="badge badge-green">추천 업체</span>';
+  if (s === "orange") return '<span class="badge badge-orange">견적만 받음, 진행하지 않음</span>';
+  if (s === "warn") return '<span class="badge badge-warn">불량 이력</span>';
+  return '<span class="badge" style="background:var(--bg-secondary);color:var(--text-tertiary);">등록됨</span>';
 }
 
 function renderContact(contact) {
