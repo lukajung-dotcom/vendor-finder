@@ -1321,17 +1321,23 @@ function render() {
     return;
   }
 
-  // 같은 업체명의 프로젝트 목록을 모아서 요약 생성
+  // 같은 업체명의 프로젝트를 자연스럽게 요약
+  // 예: 세원정밀 → "라이프 바인더와 싸바리 박스 제작"
   function summarizeProjects(vendorName) {
-    const projects = filtered.filter(v => v.name === vendorName).map(v => v.project);
+    const projects = DATA.filter(v => v.name === vendorName).map(v => v.project);
     const unique = [...new Set(projects)];
-    if (unique.length <= 2) return unique.join(", ");
-    return unique.slice(0, 2).join(", ") + ` 외 ${unique.length - 2}건`;
+    // 프로젝트명에서 핵심 키워드만 추출 (앞의 "오늘의집 리브랜딩_" 등 접두사 제거)
+    const keywords = unique.map(p => {
+      const parts = p.split("_");
+      return parts.length > 1 ? parts[parts.length - 1] : p;
+    });
+    if (keywords.length === 1) return keywords[0] + " 제작";
+    if (keywords.length === 2) return keywords[0] + "과 " + keywords[1] + " 제작";
+    return keywords.slice(0, 2).join(", ") + ` 외 ${keywords.length - 2}건 제작`;
   }
 
   container.innerHTML = filtered.map((d, i) => {
     const isRec = d.status === "green";
-    const priceObj = fmt(d.price);
     const summary = summarizeProjects(d.name);
     return `
       <article class="vendor-card${isRec ? " recommended" : ""}" style="animation-delay: ${i * 0.04}s" data-vendor="${escapeAttr(d.name)}" tabindex="0" role="button" aria-label="${escapeAttr(d.name)} 상세 보기">
@@ -1340,18 +1346,9 @@ function render() {
             <span class="vendor-name">${d.name}</span>
             ${statusBadge(d.status)}
           </div>
-          <div class="card-price${priceObj.unset ? " unset" : ""}">${priceObj.text}</div>
         </div>
         ${d.cat.length ? `<div class="card-tags">${d.cat.map(c => `<span class="tag">${c}</span>`).join("")}</div>` : ""}
-        <div class="card-summary">${escapeHtml(d.project)}${d.duration ? ` · ${escapeHtml(d.duration)}` : ""}</div>
-        ${d.note ? `<div class="card-note">${escapeHtml(d.note)}</div>` : ""}
-        <div class="card-footer">
-          <div class="card-project">— ${d.project}</div>
-          <a class="notion-link" href="${d.url}" target="_blank" rel="noopener" data-stop="1">
-            View in Notion
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h7v7"/><path d="M13 3L6 10"/></svg>
-          </a>
-        </div>
+        <div class="card-summary">${escapeHtml(summary)}</div>
       </article>
     `;
   }).join("");
